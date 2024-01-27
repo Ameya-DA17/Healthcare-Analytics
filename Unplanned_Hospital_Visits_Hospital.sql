@@ -1,0 +1,28 @@
+# KPI2.1
+select
+unplanned_hospital_visits_hospital.measure_name
+,unplanned_hospital_visits_hospital.Compared_to_national
+,hospital_general_information.hospital_overall_rating
+,count(unplanned_hospital_visits_hospital.facility_id) as No_of_Hospitals
+from Healthcare_Analytics.unplanned_hospital_visits_hospital left join Healthcare_Analytics.hospital_general_information on unplanned_hospital_visits_hospital.facility_id = hospital_general_information.facitlity_id
+group by unplanned_hospital_visits_hospital.measure_name, unplanned_hospital_visits_hospital.Compared_to_national, hospital_general_information.hospital_overall_rating;
+
+# KPI2.2
+select
+measure_name
+,sum(number_of_patients) as Patients_Visited
+,sum(number_of_patients_returned) as Patients_Returned
+from Healthcare_Analytics.unplanned_hospital_visits_hospital
+group by measure_name;
+
+# KPI2.3
+select  
+unplanned_hospital_visits_hospital.measure_name
+,hospital_general_information.city
+,hospital_general_information.state
+,hospital_general_information.country_name
+,round(avg(Score),2) as Score
+from Healthcare_Analytics.unplanned_hospital_visits_hospital left join Healthcare_Analytics.hospital_general_information on unplanned_hospital_visits_hospital.facility_id= hospital_general_information.facitlity_id
+group by unplanned_hospital_visits_hospital.measure_name, hospital_general_information.city, hospital_general_information.state, hospital_general_information.country_name;
+
+
